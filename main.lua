@@ -18,8 +18,8 @@ paddleTwo = { x = love.graphics.getWidth() - PADDLE_WIDTH,
 			
 ball = { x = (love.graphics.getWidth() / 2) - (BALL_SIZE + 2),
 		 y = (love.graphics.getHeight() / 2) - (BALL_SIZE + 2),
-		 xSpeed = 5,
-		 ySpeed = 7,
+		 xSpeed = 50,
+		 ySpeed = 75,
 		 color = {r = 0, g = 255, b = 0}
 	   }
 
@@ -30,9 +30,10 @@ end
 function love.update(dt)
 	movePaddleOnInput(dt, paddleOne, "w", "s")
 	movePaddleOnInput(dt, paddleTwo, "up", "down")
-	moveBall(ball)
+	moveBall(dt, ball)
 	checkVerticalCollisions(ball)
 	checkScoringCollisions(ball)
+	checkPaddleCollisions(ball, paddleOne, paddleTwo)
 end
 
 function love.draw()
@@ -68,9 +69,9 @@ function drawBall(ball)
 	love.graphics.rectangle("fill", ball.x, ball.y, BALL_SIZE, BALL_SIZE)
 end
 
-function moveBall(ball)
-	ball.x = ball.x + ball.xSpeed
-	ball.y = ball.y + ball.ySpeed
+function moveBall(dt, ball)
+	ball.x = ball.x + (ball.xSpeed * dt)
+	ball.y = ball.y + (ball.ySpeed * dt)
 end
 	
 function checkVerticalCollisions(ball)
@@ -97,11 +98,21 @@ end
 function resetBall(ball)
 	ball.x = (love.graphics.getWidth() / 2) - (BALL_SIZE + 2)
 	ball.y = (love.graphics.getHeight() / 2) - (BALL_SIZE + 2)
-	ball.xSpeed = 5
-	ball.ySpeed = 7
+	ball.xSpeed = 50
+	ball.ySpeed = 75
 end
 
-
+function checkPaddleCollisions(ball, leftPaddle, rightPaddle)
+	--check if ball hits rhs of leftPaddle
+	if (ball.x <= (leftPaddle.x + PADDLE_WIDTH) and ball.y > (leftPaddle.y - BALL_SIZE) and ball.y < (leftPaddle.y + PADDLE_HEIGHT)) then
+		ball.xSpeed = -ball.xSpeed
+	end
+		
+	--check if ball hits lhs of rightPaddle
+	if ((ball.x + BALL_SIZE) >= rightPaddle.x and ball.y > (rightPaddle.y - BALL_SIZE) and ball.y < (rightPaddle.y + PADDLE_HEIGHT)) then
+		ball.xSpeed = -ball.xSpeed
+	end
+end
 
 
 
