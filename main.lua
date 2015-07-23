@@ -25,6 +25,7 @@ ball = { x = (love.graphics.getWidth() / 2) - (BALL_SIZE + 2),
 
 function love.load()
 	love.graphics.setBackgroundColor(255, 255, 255)
+	math.randomseed(os.time())
 end
 
 function love.update(dt)
@@ -106,11 +107,19 @@ function checkPaddleCollisions(ball, leftPaddle, rightPaddle)
 	--check if ball hits rhs of leftPaddle
 	if (ball.x <= (leftPaddle.x + PADDLE_WIDTH) and ball.y > (leftPaddle.y - BALL_SIZE) and ball.y < (leftPaddle.y + PADDLE_HEIGHT)) then
 		ball.xSpeed = -ball.xSpeed
+		print("BEFORE: xSpeed = " .. ball.xSpeed .. "; ySpeed = " .. ball.ySpeed)
+		ball.xSpeed = ball.xSpeed + math.random(-50, 50)
+		ball.ySpeed = ball.ySpeed + math.random(-50, 50)
+		print("AFTER: xSpeed = " .. ball.xSpeed .. "; ySpeed = " .. ball.ySpeed)
 	end
 		
 	--check if ball hits lhs of rightPaddle
 	if ((ball.x + BALL_SIZE) >= rightPaddle.x and ball.y > (rightPaddle.y - BALL_SIZE) and ball.y < (rightPaddle.y + PADDLE_HEIGHT)) then
 		ball.xSpeed = -ball.xSpeed
+		print("BEFORE: xSpeed = " .. ball.xSpeed .. "; ySpeed = " .. ball.ySpeed)
+		ball.xSpeed = ball.xSpeed + math.random(-50, 50)
+		ball.ySpeed = ball.ySpeed + math.random(-50, 50)
+		print("AFTER: xSpeed = " .. ball.xSpeed .. "; ySpeed = " .. ball.ySpeed)
 	end
 end
 
