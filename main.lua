@@ -7,12 +7,12 @@ BALL_SIZE = 15
 
 paddleOne = { x = 0,
 			  y = 0,
-			  color = {r = 255, g = 0, b = 0},
+			  color = {255, 0, 0},
 			  score = 0
 			}
 paddleTwo = { x = love.graphics.getWidth() - PADDLE_WIDTH,
 			  y = love.graphics.getHeight() - PADDLE_HEIGHT,
-			  color = {r = 0, g = 0, b = 255},
+			  color = {0, 0, 255},
 			  score = 0
 			}
 			
@@ -20,7 +20,7 @@ ball = { x = (love.graphics.getWidth() / 2) - (BALL_SIZE + 2),
 		 y = (love.graphics.getHeight() / 2) - (BALL_SIZE + 2),
 		 xSpeed = 50,
 		 ySpeed = 75,
-		 color = {r = 0, g = 255, b = 0}
+		 color = {0, 255, 0}
 	   }
 
 function love.load()
@@ -61,12 +61,12 @@ function movePaddleOnInput(dt, paddle, upKey, downKey)
 end
 
 function drawPaddle(paddle)
-	love.graphics.setColor(paddle.color.r, paddle.color.g, paddle.color.b)
+	love.graphics.setColor(paddle.color)
 	love.graphics.rectangle("fill", paddle.x, paddle.y, PADDLE_WIDTH, PADDLE_HEIGHT)
 end
 
 function drawBall(ball)
-	love.graphics.setColor(ball.color.r, ball.color.g, ball.color.b)
+	love.graphics.setColor(ball.color)
 	love.graphics.rectangle("fill", ball.x, ball.y, BALL_SIZE, BALL_SIZE)
 end
 
