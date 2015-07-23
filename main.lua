@@ -38,6 +38,7 @@ function love.update(dt)
 end
 
 function love.draw()
+	drawScores()
 	drawPaddle(paddleOne)
 	drawPaddle(paddleTwo)
 	drawBall(ball)
@@ -123,7 +124,11 @@ function checkPaddleCollisions(ball, leftPaddle, rightPaddle)
 	end
 end
 
-
+function drawScores() 
+	love.graphics.setColor(100, 100, 100)
+	love.graphics.print("Player One: " .. paddleOne.score, 100, 5)
+	love.graphics.print("Player Two: " .. paddleTwo.score, 300, 5)
+end
 
 
 
